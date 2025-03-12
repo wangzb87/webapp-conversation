@@ -1,3 +1,13 @@
+import createMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm],  // 启用表格语法支持
+    rehypePlugins: []
+  }
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   productionBrowserSourceMaps: false, // enable browser source map generation during the production build
@@ -17,5 +27,5 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 }
-
+export default withMDX(nextConfig)
 module.exports = nextConfig
