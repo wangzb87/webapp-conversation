@@ -1,15 +1,21 @@
-// next.config.mjs（ESM 模式）
-import createMDX from '@next/mdx'
-
-const withMDX = createMDX({
-  // 支持 .md 和 .mdx 扩展名
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [], // 可选插件（如 remark-gfm）
-    rehypePlugins: [], // 可选插件（如 rehype-highlight）
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  productionBrowserSourceMaps: false, // enable browser source map generation during the production build
+  // Configure pageExtensions to include md and mdx
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  experimental: {
+    // appDir: true,
   },
-})
+  // fix all before production. Now it slow the develop speed.
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    // https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors
+    ignoreBuildErrors: true,
+  },
+}
 
-export default withMDX({
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-})
+module.exports = nextConfig
